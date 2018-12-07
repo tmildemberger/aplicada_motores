@@ -78,22 +78,7 @@ void setup() {
 }
 
 void loop() {
-  delay(1000);
-  motor_joao.move(1200);
-  motor_joao.runToPosition();
-  /*motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
-  motor_joao.move(275);
-  motor_joao.runToPosition();
-  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 5);
-  motor_joao.move(75);
-  motor_joao.runToPosition();
-  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
-  motor_joao.move(50);
-  motor_joao.runToPosition();*/
-  /*motor_papel1.move(1500);
-  motor_papel2.move(4500);
-  while (motor_papel1.isRunning() || motor_papel2.isRunning()){
-    motor_papel1.run();
-    motor_papel2.run();
-  }*/
+  delay(400);
+  motor_eixo_x.move(1);
+  motor_eixo_x.runToPosition();
 }
