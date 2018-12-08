@@ -8,13 +8,14 @@
 #define MOTOR_EIXO_X_ACELERACAO 100 /*passos por segundo por segundo*/
 
 #define PASSOS_PARA_O_PROXIMO_PONTO 10
+#define PASSOS_PARA_A_PROXIMA_LETRA 20
 /*Fim do motor eixo X*/
 
 /*Motor que controla a punção*/
 #define PINO_MOTOR_JOAO_STEP 4
 #define PINO_MOTOR_JOAO_DIR 3
-#define MOTOR_JOAO_VELOCIDADE 30 /*passos por segundo*/
-#define MOTOR_JOAO_ACELERACAO 30 /*passos por segundo por segundo*/
+#define MOTOR_JOAO_VELOCIDADE 800 /*passos por segundo*/
+#define MOTOR_JOAO_ACELERACAO 1600 /*passos por segundo por segundo*/
 /*Fim do motor joão*/
 
 /*Motor que puxa o papel 1*/
@@ -46,7 +47,7 @@ void setup() {
   motor_eixo_x.setMaxSpeed(MOTOR_EIXO_X_VELOCIDADE);
   motor_eixo_x.setSpeed(MOTOR_EIXO_X_VELOCIDADE);
   motor_eixo_x.setAcceleration(MOTOR_EIXO_X_ACELERACAO);
-  
+
   motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
   motor_joao.setSpeed(MOTOR_JOAO_VELOCIDADE);
   motor_joao.setAcceleration(MOTOR_JOAO_ACELERACAO);
@@ -54,13 +55,20 @@ void setup() {
   motor_papel1.setMaxSpeed(MOTOR_PAPEL1_VELOCIDADE);
   motor_papel1.setSpeed(MOTOR_PAPEL1_VELOCIDADE);
   motor_papel1.setAcceleration(MOTOR_PAPEL1_ACELERACAO);
-  
+
   motor_papel2.setMaxSpeed(MOTOR_PAPEL2_VELOCIDADE);
   motor_papel2.setSpeed(MOTOR_PAPEL2_VELOCIDADE);
   motor_papel2.setAcceleration(MOTOR_PAPEL2_ACELERACAO);
   
-  /*while (digitalRead(PINO_SENSOR_DE_FIM_DE_CURSO) == HIGH){
-    if (!motor_eixo_x.isRunning()){
+  /*motor_papel1.move(1500);
+    motor_papel2.move(4500);
+    while (motor_papel1.isRunning() || motor_papel2.isRunning()){
+    motor_papel1.run();
+    motor_papel2.run();
+    }*/
+
+  while (digitalRead(PINO_SENSOR_DE_FIM_DE_CURSO) == HIGH) {
+    if (!motor_eixo_x.isRunning()) {
       motor_eixo_x.move(-20000);
     }
     motor_eixo_x.run();
@@ -69,31 +77,40 @@ void setup() {
   while (motor_eixo_x.isRunning())
     motor_eixo_x.run();
   motor_eixo_x.setCurrentPosition(0);
-  
+
   motor_eixo_x.move(20);
   motor_eixo_x.runToPosition();
-  motor_eixo_x.setCurrentPosition(0);*/
-  
-  
+  motor_eixo_x.setCurrentPosition(0);
+  delay(1000);
+  /*considerando que o joão começa na horizontal*/
+  motor_joao.move(250);
+  motor_joao.runToPosition();
 }
 
 void loop() {
-  delay(1000);
-  motor_joao.move(1200);
-  motor_joao.runToPosition();
-  /*motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
-  motor_joao.move(275);
-  motor_joao.runToPosition();
-  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 5);
-  motor_joao.move(75);
-  motor_joao.runToPosition();
+  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 8);
+  motor_joao.move(100);
+  while (motor_joao.distanceToGo() > 1){
+    motor_joao.run();
+  }
   motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
-  motor_joao.move(50);
-  motor_joao.runToPosition();*/
-  /*motor_papel1.move(1500);
-  motor_papel2.move(4500);
-  while (motor_papel1.isRunning() || motor_papel2.isRunning()){
-    motor_papel1.run();
-    motor_papel2.run();
-  }*/
+  motor_joao.move(300);
+  motor_eixo_x.move(PASSOS_PARA_O_PROXIMO_PONTO);
+  while (motor_joao.distanceToGo() > 1){
+    motor_joao.run();
+    motor_eixo_x.run();
+  }
+  /*o mesmo porém com o dobro da distancia*/
+  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 8);
+  motor_joao.move(100);
+  while (motor_joao.distanceToGo() > 1){
+    motor_joao.run();
+  }
+  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 2);
+  motor_joao.move(300);
+  motor_eixo_x.move(PASSOS_PARA_A_PROXIMA_LETRA);
+  while (motor_joao.distanceToGo() > 1){
+    motor_joao.run();
+    motor_eixo_x.run();
+  }
 }
