@@ -59,7 +59,7 @@ void setup() {
   motor_papel2.setSpeed(MOTOR_PAPEL2_VELOCIDADE);
   motor_papel2.setAcceleration(MOTOR_PAPEL2_ACELERACAO);
   
-  /*while (digitalRead(PINO_SENSOR_DE_FIM_DE_CURSO) == HIGH){
+  while (digitalRead(PINO_SENSOR_DE_FIM_DE_CURSO) == HIGH){
     if (!motor_eixo_x.isRunning()){
       motor_eixo_x.move(-20000);
     }
@@ -72,15 +72,15 @@ void setup() {
   
   motor_eixo_x.move(20);
   motor_eixo_x.runToPosition();
-  motor_eixo_x.setCurrentPosition(0);*/
+  motor_eixo_x.setCurrentPosition(0);
   
   
 }
 
 void loop() {
-  delay(1000);
+  /*delay(1000);
   motor_joao.move(1200);
-  motor_joao.runToPosition();
+  motor_joao.runToPosition();*/
   /*motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
   motor_joao.move(275);
   motor_joao.runToPosition();
@@ -90,10 +90,10 @@ void loop() {
   motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
   motor_joao.move(50);
   motor_joao.runToPosition();*/
-  /*motor_papel1.move(1500);
+  motor_papel1.move(1500);
   motor_papel2.move(4500);
   while (motor_papel1.isRunning() || motor_papel2.isRunning()){
     motor_papel1.run();
     motor_papel2.run();
-  }*/
+  }
 }
