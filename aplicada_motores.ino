@@ -89,8 +89,8 @@ void setup() {
 
 void loop() {
   motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 8);
-  motor_joao.move(100);
-  while (motor_joao.distanceToGo() > 1){
+  motor_joao.move(800);
+  while (motor_joao.distanceToGo() > 700){
     motor_joao.run();
   }
   motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
