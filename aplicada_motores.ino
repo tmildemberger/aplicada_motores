@@ -15,7 +15,7 @@
 #define PINO_MOTOR_JOAO_STEP 4
 #define PINO_MOTOR_JOAO_DIR 3
 #define MOTOR_JOAO_VELOCIDADE 800 /*passos por segundo*/
-#define MOTOR_JOAO_ACELERACAO 1600 /*passos por segundo por segundo*/
+#define MOTOR_JOAO_ACELERACAO 3200 /*passos por segundo por segundo*/
 /*Fim do motor joão*/
 
 /*Motor que puxa o papel 1*/
@@ -83,34 +83,52 @@ void setup() {
   motor_eixo_x.setCurrentPosition(0);
   delay(1000);
   /*considerando que o joão começa na horizontal*/
-  motor_joao.move(250);
+  motor_joao.move(100);
   motor_joao.runToPosition();
+  motor_joao.move(550);
+  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 8);
 }
 
 void loop() {
-  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 8);
   motor_joao.move(800);
   while (motor_joao.distanceToGo() > 700){
     motor_joao.run();
   }
+  /*100 passos a velocidade 100*/
+  
   motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE);
-  motor_joao.move(300);
   motor_eixo_x.move(PASSOS_PARA_O_PROXIMO_PONTO);
-  while (motor_joao.distanceToGo() > 1){
+  while (motor_joao.distanceToGo() > 550){
     motor_joao.run();
     motor_eixo_x.run();
   }
-  /*o mesmo porém com o dobro da distancia*/
+  /*acelerando durante 150 passos*/
+  
   motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 8);
-  motor_joao.move(100);
-  while (motor_joao.distanceToGo() > 1){
-    motor_joao.run();
-  }
-  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 2);
-  motor_joao.move(300);
-  motor_eixo_x.move(PASSOS_PARA_A_PROXIMA_LETRA);
-  while (motor_joao.distanceToGo() > 1){
+  while (motor_joao.distanceToGo() > 400){
     motor_joao.run();
     motor_eixo_x.run();
   }
+  /*desacelerando durante 150 passos*/
+  
+  motor_joao.move(800);
+  while (motor_joao.distanceToGo() > 700){
+    motor_joao.run();
+  }
+  /*100 passos a velocidade 100*/
+  
+  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 4);
+  motor_eixo_x.move(PASSOS_PARA_A_PROXIMA_LETRA);
+  while (motor_joao.distanceToGo() > 550){
+    motor_joao.run();
+    motor_eixo_x.run();
+  }
+  /*acelerando durante 150 passos*/
+  
+  motor_joao.setMaxSpeed(MOTOR_JOAO_VELOCIDADE / 8);
+  while (motor_joao.distanceToGo() > 400){
+    motor_joao.run();
+    motor_eixo_x.run();
+  }
+  /*desacelerando durante 150 passos*/
 }
