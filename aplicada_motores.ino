@@ -5,9 +5,9 @@
 #define PINO_MOTOR_EIXOX_STEP 6
 #define PINO_MOTOR_EIXOX_DIR 5
 #define MOTOR_EIXO_X_VELOCIDADE 100 /*passos por segundo*/
-#define MOTOR_EIXO_X_ACELERACAO 100 /*passos por segundo por segundo*/
+#define MOTOR_EIXO_X_ACELERACAO 120 /*passos por segundo por segundo*/
 
-#define PASSOS_PARA_O_PROXIMO_PONTO 10
+#define PASSOS_PARA_O_PROXIMO_PONTO 20
 /*Fim do motor eixo X*/
 
 /*Motor que controla a punção*/
@@ -78,7 +78,10 @@ void setup() {
 }
 
 void loop() {
-  delay(400);
-  motor_eixo_x.move(1);
+  delay(5000);
+  motor_eixo_x.move(PASSOS_PARA_O_PROXIMO_PONTO);
+  motor_eixo_x.runToPosition();
+  delay(5000);
+  motor_eixo_x.move(PASSOS_PARA_O_PROXIMO_PONTO * 2);
   motor_eixo_x.runToPosition();
 }
