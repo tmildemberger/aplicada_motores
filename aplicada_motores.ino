@@ -97,6 +97,14 @@ int cela_atual = 0;
 int mini_linha_atual = 0;
 
 void loop() {
+  if (Serial.available() > 0) {
+    if (Serial.peek() == 0x5A) {
+      Serial.write(0xA5);
+    }
+  }
+}
+
+void faz_o_urro() {
   cela_atual++;
   
   motor_joao.move(400);
